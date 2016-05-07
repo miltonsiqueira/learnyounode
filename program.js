@@ -1,7 +1,23 @@
-var fs = require("fs");
+var fs = require("fs"),
+    path = require("path");
 
-fs.readFile(process.argv[2],function(err, data){
-    if(!err){
-        console.log(data.toString().split('\n').length - 1);
+fs.readdir(process.argv[2],function(err, files){
+    
+    if(err){
+        console.log(err);
+    }else{
+        var filter = process.argv[3]
+
+        if(filter){
+            filter = "." + filter.toLowerCase();
+        }
+        
+        files.forEach(function(file){
+            
+            if(!filter || path.extname(file) === filter){
+                console.log(file);
+            }            
+        });
     }
+    
 });
