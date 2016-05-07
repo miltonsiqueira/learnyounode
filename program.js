@@ -1,5 +1,7 @@
-var fs = require("fs"),
-    buffer = fs.readFileSync(process.argv[2]),
-    lines = buffer.toString().split('\n');
+var fs = require("fs");
 
-console.log(lines.length-1);
+fs.readFile(process.argv[2],function(err, data){
+    if(!err){
+        console.log(data.toString().split('\n').length - 1);
+    }
+});
