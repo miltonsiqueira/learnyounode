@@ -1,23 +1,13 @@
-var fs = require("fs"),
-    path = require("path");
+var filterFn = require("./filterfn.js"),
+    directory = process.argv[2],
+    filter = process.argv[3];
 
-fs.readdir(process.argv[2],function(err, files){
-    
+filterFn(directory, filter, function(err, data){
     if(err){
-        console.log(err);
+        return console.error("There was a error:", err);
     }else{
-        var filter = process.argv[3]
-
-        if(filter){
-            filter = "." + filter.toLowerCase();
-        }
-        
-        files.forEach(function(file){
-            
-            if(!filter || path.extname(file) === filter){
-                console.log(file);
-            }            
+        data.forEach(function(item){
+            console.log(item);
         });
     }
-    
 });
