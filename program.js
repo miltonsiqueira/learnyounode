@@ -1,13 +1,7 @@
-var filterFn = require("./filterfn.js"),
-    directory = process.argv[2],
-    filter = process.argv[3];
+var http = require("http");
 
-filterFn(directory, filter, function(err, data){
-    if(err){
-        return console.error("There was a error:", err);
-    }else{
-        data.forEach(function(item){
-            console.log(item);
-        });
-    }
-});
+http.get(process.argv[2], function(response){
+        response.setEncoding("utf8");
+        response.on("error", console.error);
+        response.on("data", console.log);
+    }).on("error", console.error);
